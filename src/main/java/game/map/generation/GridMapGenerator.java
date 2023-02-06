@@ -22,7 +22,6 @@ import java.util.ArrayList;
  * @author Noris
  * @date 2015/04/23
  */
-
 public class GridMapGenerator implements IMapGenerator {
 
 	/*
@@ -77,25 +76,25 @@ public class GridMapGenerator implements IMapGenerator {
 
 	private void clearMap() {
 		map = new Map();
-		spawnPoints = new ArrayList<MapDimension>();
-		doors = new ArrayList<MapDimension>();
+		spawnPoints = new ArrayList<>();
+		doors = new ArrayList<>();
 
-		wallSegments = new ArrayList<MapDimension>();
-		wallsPositions = new ArrayList<MapDimension>();
-		wallsSizes = new ArrayList<MapDimension>();
+		wallSegments = new ArrayList<>();
+		wallsPositions = new ArrayList<>();
+		wallsSizes = new ArrayList<>();
 	}
 
 	/*
 	 * Generates a grid of walls in the total size of the map. Every wall go
 	 * from one end of the map to the other, and it's distance from the closest
-	 * walls is always equal to GRID_TOLERANCE. Than the number of these walls
+	 * walls is always equal to GRID_TOLERANCE. Then the number of these walls
 	 * is equal to the length of the map divided by GRID_TOLERANCE. After the
 	 * creation of a wall, it is split into N+1 segment, where N is the (random)
 	 * number of the doors. Every segment has the same length.
 	 */
 	private void generateGrid() {
 
-		double newLenght = -mapSize.getLength();
+		double newLength = -mapSize.getLength();
 
 		int loop = (int) Math.round(mapSize.getLength() * 2 / GRID_TOLERANCE) + 1;
 
@@ -103,7 +102,7 @@ public class GridMapGenerator implements IMapGenerator {
 
 		for (int i = 0; i < loop; i++) {
 
-			MapDimension position = new MapDimension(newLenght, -1, 0);
+			MapDimension position = new MapDimension(newLength, -1, 0);
 
 			MapDimension size = new MapDimension(WALL_SIZE, 2, mapSize.getWidth() * 2);
 
@@ -125,7 +124,7 @@ public class GridMapGenerator implements IMapGenerator {
 				}
 			}
 
-			newLenght += GRID_TOLERANCE;
+			newLength += GRID_TOLERANCE;
 
 		}
 	}
@@ -137,7 +136,7 @@ public class GridMapGenerator implements IMapGenerator {
 	 */
 	private ArrayList<MapDimension> generateDoors(MapDimension position, MapDimension size, int num) {
 
-		ArrayList<MapDimension> walls = new ArrayList<MapDimension>();
+		ArrayList<MapDimension> walls = new ArrayList<>();
 
 		ArrayList<MapDimension> points = MapGeometric.getWallPointsOnLength(position, size);
 
@@ -152,7 +151,7 @@ public class GridMapGenerator implements IMapGenerator {
 			double l1 = p1.getLength();
 			double l2 = p2.getLength();
 
-			double length = l1 < l2 ? l1 : l2;
+			double length = Math.min(l1, l2);
 
 			for (int i = 0; i < num + 1; i++) {
 
@@ -178,7 +177,7 @@ public class GridMapGenerator implements IMapGenerator {
 			double w1 = p1.getWidth();
 			double w2 = p2.getWidth();
 
-			double width = w1 < w2 ? w1 : w2;
+			double width = Math.min(w1, w2);
 
 			for (int i = 0; i < num + 1; i++) {
 

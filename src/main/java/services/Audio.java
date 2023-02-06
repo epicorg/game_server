@@ -1,78 +1,67 @@
 package services;
 
-import messages.fields_names.AudioFields;
-import messages.fields_names.CommonFields;
-import messages.fields_names.RoomFields;
-import messages.fields_names.ServicesFields;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import voip.AudioData;
-import voip.NetUtils;
 import data_management.GameDataManager;
 import exceptions.NoSuchPlayerException;
 import exceptions.NoSuchRoomException;
 import game.model.Player;
+import messages.fields_names.AudioFields;
+import messages.fields_names.CommonFields;
+import messages.fields_names.RoomFields;
+import messages.fields_names.ServicesFields;
+import org.json.JSONException;
+import org.json.JSONObject;
+import voip.AudioData;
+import voip.NetUtils;
 
 /**
- * Audio Service acquires audio data needed to initiate VOIP communication
- * between client end server. Gets back to the client the connection details and
- * reserves the necessary net resources necessary.
- * 
+ * Audio Service acquires audio data needed to initiate VOIP communication between client end server. Gets back to the
+ * client the connection details and reserves the necessary net resources necessary.
+ *
  * @author Micieli
  * @date 2015/05/03
  */
-
 public class Audio implements IService {
 
-	@Override
-	public JSONObject start(JSONObject request) {
+    @Override
+    public JSONObject start(JSONObject request) {
 
-		GameDataManager dataManager = GameDataManager.getInstance();
-		int localPort = NetUtils.findFreePort();
+        GameDataManager dataManager = GameDataManager.getInstance();
+        int localPort = NetUtils.findFreePort();
 
-		try {
+        try {
+            String roomName = request.getString(RoomFields.ROOM_NAME.toString());
+            String username = request.getString(CommonFields.USERNAME.toString());
+            Player player = dataManager.getRoomByName(roomName).getPlayerByName(username);
+            int playerAudioPort = request.getInt(AudioFields.AUDIO_PORT_CLIENT.toString());
+            AudioData audioData = player.getAudioData();
+            audioData.setLocalPort(localPort);
+            int localControlPort = NetUtils.findFreePort();
+            audioData.setLocalControlPort(localControlPort);
+            audioData.setRemotePort(playerAudioPort);
+        } catch (JSONException | NoSuchPlayerException | NoSuchRoomException e) {
+            e.printStackTrace();
+        }
 
-			String roomName = request.getString(RoomFields.ROOM_NAME.toString());
-			String username = request.getString(CommonFields.USERNAME.toString());
-			Player player = dataManager.getRoomByName(roomName).getPlayerByName(username);
-			int playerAudioPort = request.getInt(AudioFields.AUDIO_PORT_CLIENT.toString());
-			AudioData audioData = player.getAudioData();
-			audioData.setLocalPort(localPort);
-			int localControlPort = NetUtils.findFreePort();
-			audioData.setLocalControlPort(localControlPort);
-			audioData.setRemotePort(playerAudioPort);
+        return generateResponse(localPort);
+    }
 
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (NoSuchPlayerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchRoomException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    protected JSONObject generateResponse(int localPort) {
 
-		return generateResponse(localPort);
-	}
+        JSONObject response = new JSONObject();
 
-	protected JSONObject generateResponse(int localPort) {
+        try {
+            response.put(ServicesFields.SERVICE.toString(), ServicesFields.AUDIO.toString());
+            response.put(AudioFields.AUDIO_PORT_SERVER.toString(), localPort);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-		JSONObject response = new JSONObject();
+        return response;
+    }
 
-		try {
-			response.put(ServicesFields.SERVICE.toString(), ServicesFields.AUDIO.toString());
-			response.put(AudioFields.AUDIO_PORT_SERVER.toString(), localPort);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+    @Override
+    public String getName() {
+        return ServicesFields.AUDIO.toString();
+    }
 
-		return response;
-	}
-
-	@Override
-	public String getName() {
-		return ServicesFields.AUDIO.toString();
-	}
 }

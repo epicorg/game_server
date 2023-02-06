@@ -1,6 +1,6 @@
 package server;
 
-import check_fields.RequestFieldChecher;
+import check_fields.RequestFieldChecker;
 import connection_encryption.AsymmetricKeysGenerator;
 import connection_encryption.ConnectionEncrypter;
 import connection_encryption.KeysGenerator;
@@ -30,12 +30,10 @@ import static database.Paths.getUsersPath;
  * @author Noris
  * @date 2015/04/17
  */
-
 public class ServerInitializer {
 
     /**
-     * Initialize the server setting up configurations information about data
-     * managing system and encryption.
+     * Initialize the server setting up configurations information about data managing system and encryption.
      */
     public void init() {
         initEncryption();
@@ -44,7 +42,6 @@ public class ServerInitializer {
     }
 
     private void initChecks() {
-
         String[] services = {ServicesFields.ENCRYPT.toString(),
                 ServicesFields.LOGIN.toString(),
                 ServicesFields.REGISTER.toString(),
@@ -54,31 +51,23 @@ public class ServerInitializer {
 
         ArrayList<String> arrayList = new ArrayList<>();
         Collections.addAll(arrayList, services);
-        RequestFieldChecher.setServiceNotToBeChecked(arrayList);
+        RequestFieldChecker.setServiceNotToBeChecked(arrayList);
     }
 
     private void initEncryption() {
-
         KeysGenerator keysGenerator = new AsymmetricKeysGenerator();
         keysGenerator.generateKeys();
         ConnectionEncrypter.setKeysGenerator(keysGenerator);
-
-        RegisteredUser.setPasswordEncrypter(new PasswordEncrypter(
-                new SHA512StringEncrypter()));
+        RegisteredUser.setPasswordEncrypter(new PasswordEncrypter(new SHA512StringEncrypter()));
     }
 
     private void initDataManager() {
-
         UsersDataManager dataManager = UsersDataManager.getInstance();
-
         RegisterDataSaver registerDataSaver = new RegisterDataSaver(
                 new UserSaver(getUsersPath(), new UserLineFormatter()),
                 new EmailSaver(getEmailsPath(), new EmailFormatter()));
-
         dataManager.setRegisterDataSaver(registerDataSaver);
-
         dataManager.setChecker(new RegistrationFileChecker(getUsersPath(), getEmailsPath()));
-
         dataManager.setLoginChecker(new LoginFileChecker(getUsersPath()));
     }
 

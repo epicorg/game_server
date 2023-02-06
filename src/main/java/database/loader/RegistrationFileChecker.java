@@ -16,17 +16,14 @@ import exceptions.UsernameAlreadyUsedException;
  * @author Gavina
  * @date 2015/04/17
  */
-
 public class RegistrationFileChecker implements IRegistrationChecker {
 
 	private String userPath;
 	private String emailsFile;
 
 	/**
-	 * @param userPath
-	 *            the path in which the user data is saved
-	 * @param emailsFile
-	 *            the file in which e-mails list is located
+	 * @param userPath the path in which the user data is saved
+	 * @param emailsFile the file in which e-mails list is located
 	 */
 	public RegistrationFileChecker(String userPath, String emailsFile) {
 		super();
@@ -35,24 +32,15 @@ public class RegistrationFileChecker implements IRegistrationChecker {
 	}
 
 	@Override
-	public void checkUsername(String username)
-			throws UsernameAlreadyUsedException {
-
-		File file = new File(userPath + username);
-		boolean exsist = file.exists();
-		if (exsist) {
+	public void checkUsername(String username) throws UsernameAlreadyUsedException {
+		if (new File(userPath + username).exists())
 			throw new UsernameAlreadyUsedException();
-		}
 	}
 
 	@Override
-	public void checkEmail(String email) throws EmailAlreadyUsedException,
-			IOException {
-
+	public void checkEmail(String email) throws EmailAlreadyUsedException, IOException {
 		BufferedReader reader;
-
 		try {
-
 			reader = new BufferedReader(new FileReader(emailsFile));
 			String line = reader.readLine();
 

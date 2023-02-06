@@ -8,7 +8,6 @@ import java.io.File;
  * @author Noris
  * @date 2015/04/25
  */
-
 public final class Paths {
 
     private static final String DATABASE_PATH = "database";

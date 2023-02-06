@@ -9,7 +9,6 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @date 2015/04/16
  * @see StringEncrypter
  */
-
 public class Md5StringEncrypter implements StringEncrypter {
 
 	@Override

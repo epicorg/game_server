@@ -1,9 +1,3 @@
-# PROJECT
-
-# Libraries
-!src/main/resources/rtplib.jar
-
-
 # JAVA
 
 # Target folder
@@ -33,6 +27,12 @@ target/
 # Virtual machine crash logs
 hs_err_pid*
 replay_pid*
+
+
+# PROJECT
+
+# Libraries
+!src/main/resources/rtplib.jar
 
 
 # INTELLIJ IDEA

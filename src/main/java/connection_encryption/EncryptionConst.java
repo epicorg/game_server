@@ -5,7 +5,6 @@ package connection_encryption;
  * @version 2
  * @date 2015/05/30
  */
-
 public class EncryptionConst {
 
     public static final String ASYMMETRIC_ALGORITHM = "RSA";

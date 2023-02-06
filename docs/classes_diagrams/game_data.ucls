@@ -91,7 +91,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <interface id="11" language="java" name="game.model.IWinChecher" project="game_server" 
+  <interface id="11" language="java" name="game.model.IWinChecker" project="game_server"
     file="/game_server/src/game/model/IWinChecher.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="854" y="524"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

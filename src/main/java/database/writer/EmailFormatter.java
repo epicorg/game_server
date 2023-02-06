@@ -8,7 +8,6 @@ import data_management.RegisteredUser;
  * @author Micieli
  * @date 2015/04/17
  */
-
 public class EmailFormatter implements ILineFormatter {
 
 	@Override

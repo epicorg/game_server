@@ -5,73 +5,71 @@ import java.text.DecimalFormat;
 
 /**
  * It represents a three dimension point.
- * 
+ *
  * @author Noris
  * @date 2015/04/23
  */
-
 public class MapDimension implements Comparable<MapDimension> {
 
-	private double width;
-	private double height;
-	private double length;
+    private double width;
+    private double height;
+    private double length;
 
-	public MapDimension(double width, double height, double length) {
-		this.width = width;
-		this.height = height;
-		this.length = length;
-	}
+    public MapDimension(double width, double height, double length) {
+        this.width = width;
+        this.height = height;
+        this.length = length;
+    }
 
-	public double getWidth() {
-		return width;
-	}
+    public double getWidth() {
+        return width;
+    }
 
-	public void setWidth(float width) {
-		this.width = width;
-	}
+    public void setWidth(float width) {
+        this.width = width;
+    }
 
-	public double getHeight() {
-		return height;
-	}
+    public double getHeight() {
+        return height;
+    }
 
-	public void setHeight(float height) {
-		this.height = height;
-	}
+    public void setHeight(float height) {
+        this.height = height;
+    }
 
-	public double getLength() {
-		return length;
-	}
+    public double getLength() {
+        return length;
+    }
 
-	public void setLength(float length) {
-		this.length = length;
-	}
+    public void setLength(float length) {
+        this.length = length;
+    }
 
-	/**
-	 * @return a string which represents the dimension in float values
-	 */
-	public String toString() {
+    /**
+     * @return a string which represents the dimension in float values
+     */
+    public String toString() {
 
-		DecimalFormat df = new DecimalFormat("#.##");
-		df.setRoundingMode(RoundingMode.DOWN);
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.DOWN);
 
-		String string = df.format(width) + " " + df.format(height) + " " + df.format(length);
+        String string = df.format(width) + " " + df.format(height) + " " + df.format(length);
 
-		string = string.replace(',', '.');
+        string = string.replace(',', '.');
 
-		return string;
-	}
+        return string;
+    }
 
-	/**
-	 * @return a string which represents the dimension in double values
-	 */
-	public String toStringLong() {
-		return width + " " + height + " " + length;
-	}
+    /**
+     * @return a string which represents the dimension in double values
+     */
+    public String toStringLong() {
+        return width + " " + height + " " + length;
+    }
 
-	@Override
-	public int compareTo(MapDimension other) {
-		return Double.compare(width, other.width) + Double.compare(height, other.height)
-				+ Double.compare(length, other.length);
-	}
+    @Override
+    public int compareTo(MapDimension other) {
+        return Double.compare(width, other.width) + Double.compare(height, other.height) + Double.compare(length, other.length);
+    }
 
 }

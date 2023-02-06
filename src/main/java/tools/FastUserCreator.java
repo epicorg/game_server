@@ -12,8 +12,8 @@ import java.util.Scanner;
 import static database.Paths.getUsersPath;
 
 /**
- * Create user bypassing the checking function. Note: actually you can't log in with
- * invalids fields in the client (it checks the login fields like the registration fields).
+ * Create user bypassing the checking function. Note: actually you can't log in with invalids fields in the client
+ * (it checks the login fields like the registration fields).
  *
  * @author Noris
  * @date 05/05/2015

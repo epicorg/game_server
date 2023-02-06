@@ -1,7 +1,7 @@
 package messages.fields_names;
 
 public enum CommonFields {
-	
+
     IP_ADDRESS,
     RESULT,
     HASHCODE,
@@ -15,4 +15,5 @@ public enum CommonFields {
     OFFLINE,
     SERVER_ERROR,
     MISSING_FIELD
+
 }

@@ -5,18 +5,16 @@ import tools.MapEditor;
 import java.awt.*;
 
 /**
- * Test of the {@link MapEditor}. It builds the java code of a map constructor
- * who contains the borders of a 40x40 map (real size: from -20 to +20).
+ * Test of the {@link MapEditor}. It builds the java code of a map constructor who contains the borders of a
+ * 40x40 map (real size: from -20 to +20).
  *
  * @author Noris
  * @date 2015/05/25
  * @see MapEditor
  */
-
 class Test01 {
 
     public static void main(String[] args) {
-
         // Set the map size
         Point mapSize = new Point();
         mapSize.setLocation(40, 40);
@@ -61,7 +59,6 @@ class Test01 {
 
         // Print the java map
         System.out.println(m.getJavaCode());
-
     }
 
 }
